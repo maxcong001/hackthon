@@ -148,7 +148,6 @@ void IMTCPMgr::IMTcp_log( char *module, int level, char *format, ...)
 }
 void IMTCPMgr::IMBldLocalAddr(OSENDPOINT* local_addr, OSIPPORT local_port)
 {
-	//AIM_GET_POOL_INFOPTR
 	int ret;
 	unsigned long   ipaddr = 0;
 	OSEP_INIT(local_addr);
