@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 #include <event.h>
+#include <wiringPi.h>
 
 
 #define PORT        25341
@@ -31,6 +32,16 @@ void release_sock_event(struct sock_ev* ev)
 void on_write(int sock, short event, void* arg)
 {
     char* buffer = (char*)arg;
+    if ( buffer[0] == 'a')
+    {
+        digitalWrite (0, HIGH);
+        printf("receive a\n");
+    }
+    if ( buffer[0] == 'b')
+    {
+        digitalWrite (0, LOW);
+        printf("receive b\n");
+    }
     send(sock, buffer, strlen(buffer), 0);
 
     free(buffer);
@@ -71,6 +82,9 @@ void on_accept(int sock, short event, void* arg)
 
 int main(int argc, char* argv[])
 {
+    // init wiring
+    wiringPiSetup () ;
+    pinMode (0, OUTPUT) ;
     struct sockaddr_in my_addr;
     int sock;
 

@@ -9,7 +9,7 @@
 #include <fcntl.h>
 #include <sys/shm.h>
 
-#define MYPORT  8887
+#define MYPORT  25341
 #define BUFFER_SIZE 1024
 
 int main()
