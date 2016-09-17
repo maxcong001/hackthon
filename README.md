@@ -8,7 +8,7 @@ sudo docker run -p 25341:25341 --device /dev/ttyAMA0:/dev/ttyAMA0 --device /dev/
 #gateway side
 
 
-##build dynamic lib -- librf24_wrap.so need to copy it to the /usr/lib
+##build dynamic lib -- librf24_wrap.so 
 gcc  -fpic   -shared  rf24_wrap.cpp -o librf24_wrap.so
 file needed:
 rf24_wrap.cpp  rf24_wrap.h rf24_wrap_def.h
@@ -29,8 +29,6 @@ sudo make&&make install
 gcc libevent.c -levent -lrf24_wrap -lrf24-bcm
 file needed:
 libevent.c
-
-
 
 #client side
 
