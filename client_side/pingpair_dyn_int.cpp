@@ -71,7 +71,7 @@ RF24_RETURN_TYPE handle_set_message(unsigned char protol, unsigned mask, char* m
 	// just for test
 	if ( protol == one_pin)
 	{
-		if ( (mask >> 4) == 1)
+		if ( (mask >> on_off_pin) == 1)
 		{
 			pinMode(on_off_pin,OUTPUT);
 			if (message[0] == 1)
