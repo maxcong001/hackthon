@@ -1,18 +1,12 @@
 /*
  * rf24.cpp
  *
- *  Created on: 2016Äê9ÔÂ17ÈÕ
+ *  Created on: 2016ï¿½ï¿½9ï¿½ï¿½17ï¿½ï¿½
  *      Author: mcong
  */
 /*
 	TMRh20 2014 - Optimized RF24 Library Fork
 */
-
-/**
- * Example using Dynamic Payloads
- *
- * This is an example of how to use payloads of a varying (dynamic) size.
- */
 
 #include <cstdlib>
 #include <iostream>
@@ -153,7 +147,6 @@ int interruptPin = 23; // GPIO pin for interrupts
 
 // Radio pipe addresses for the 2 nodes to communicate.
 const uint64_t pipes[2] = { 0xF0F0F0F0E1LL, 0xF0F0F0F0D2LL };
-
 
 
 const int min_payload_size = 4;

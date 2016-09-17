@@ -268,34 +268,32 @@ int main(int argc, char** argv){
 	while (1)
 	{
 
-if (role == role_ping_out)
-  {
-    // The payload will always be the same, what will change is how much of it we send.
-    static char send_payload[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ789012";
+		if (role == role_ping_out)
+		{
+			// The payload will always be the same, what will change is how much of it we send.
+			static char send_payload[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ789012";
 
-    // First, stop listening so we can talk.
-    radio.stopListening();
+			// First, stop listening so we can talk.
+			radio.stopListening();
 
-    // Take the time, and send it.  This will block until complete
-    if (flag == 0)
-    {
-       flag = 1;
-       send_RF24_one_pin(1,4);
-    }
-    else
-    {
-	flag = 0;
-	send_RF24_one_pin(0,4);
-    }
+			// Take the time, and send it.  This will block until complete
+			if (flag == 0)
+				{
+				flag = 1;
+				send_RF24_one_pin(1,4);
+				}
+			else
+				{
+				flag = 0;
+				send_RF24_one_pin(0,4);
+				}
 
-    printf("send out RF message\n");
-    fflush(stdout);
-    // Try again 1s later
-    delay(2000);
-  }
-
-
-}
+			printf("send out RF message\n");
+			fflush(stdout);
+			// Try again 2s later
+			delay(2000);
+		}
+	}
 }
 
 
