@@ -5,7 +5,7 @@ it is for rpi 1,rpi A+. docker image can find in pan.baidu.com. Will upload late
 ##how to start the image
 sudo docker run -p 25341:25341 --device /dev/ttyAMA0:/dev/ttyAMA0 --device /dev/mem:/dev/mem --privileged -ti imagename bash
 
-###gateway side
+#gateway side
 
 
 ##build dynamic lib -- librf24_wrap.so need to copy it to the /usr/lib
@@ -31,9 +31,8 @@ file needed:
 libevent.c
 
 
-########################################################################################################################
-client side
-#######################################################################################################################
+
+#client side
 
 ##build elf
 g++ pingpair_dyn_int.cpp -lrf24-bcm
