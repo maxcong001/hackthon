@@ -1,14 +1,12 @@
-for hackthon.
+##for hackthon.
 
 it is for rpi 1,rpi A+. docker image can find in pan.baidu.com. Will upload later(blocked by China gateway....)
 
 ##how to start the image
 sudo docker run -p 25341:25341 --device /dev/ttyAMA0:/dev/ttyAMA0 --device /dev/mem:/dev/mem --privileged -ti imagename bash
 
+###gateway side
 
-####################################################################################################
-gateway side
-####################################################################################################
 
 ##build dynamic lib -- librf24_wrap.so need to copy it to the /usr/lib
 gcc  -fpic   -shared  rf24_wrap.cpp -o librf24_wrap.so
