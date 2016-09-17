@@ -15,10 +15,15 @@ rf24_wrap.cpp  rf24_wrap.h rf24_wrap_def.h
 
 ##build dynamic lib -- librf24-bcm.so
 g++ -Wall -fPIC -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -c RF24.cpp
+
 g++ -Wall -fPIC -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -c utility/RPi/spi.cpp
+
 gcc -Wall -fPIC -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -c utility/RPi/bcm2835.c
+
 g++ -Wall -fPIC -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -c utility/RPi/interrupt.c
+
 g++ -shared -Wl,-soname,librf24-bcm.so.1 -pthread -Ofast -mfpu=vfp -mfloat-abi=hard -march=armv6zk -mtune=arm1176jzf-s -o librf24-bcm.so.1.0 RF24.o spi.o bcm2835.o interrupt.o
+
 file needed: RF24.cpp spi.cpp bcm2835.c interrupt.c
 
 ##build dynamic lib --libevent
