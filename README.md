@@ -38,3 +38,6 @@ client side
 #######################################################################################################################
 
 ##build elf
+g++ pingpair_dyn_int.cpp -lrf24-bcm
+file needed:
+pingpair_dyn_int.cpp
