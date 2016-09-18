@@ -9,7 +9,7 @@ sudo docker run -p 25341:25341 --device /dev/ttyAMA0:/dev/ttyAMA0 --device /dev/
 
 
 ##build dynamic lib -- librf24_wrap.so 
-gcc  -fpic   -shared  rf24_wrap.cpp -o librf24_wrap.so
+g++  -fpic   -shared  rf24_wrap.cpp -o librf24_wrap.so
 file needed:
 rf24_wrap.cpp  rf24_wrap.h rf24_wrap_def.h
 
