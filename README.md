@@ -1,4 +1,9 @@
-##for hackthon.
+#for hackthon.
+#this is p2
+plan to bring mesh network in
+
+
+#this is ph1
 
 it is for rpi 1,rpi A+. docker image can find in pan.baidu.com. Will upload later(blocked by China gateway....)
 
@@ -9,7 +14,7 @@ sudo docker run -p 25341:25341 --device /dev/ttyAMA0:/dev/ttyAMA0 --device /dev/
 
 
 ##build dynamic lib -- librf24_wrap.so 
-g++  -fpic   -shared  rf24_wrap.cpp -o librf24_wrap.so
+gcc  -fpic   -shared  rf24_wrap.cpp -o librf24_wrap.so
 file needed:
 rf24_wrap.cpp  rf24_wrap.h rf24_wrap_def.h
 
