@@ -3,6 +3,8 @@
 plan to bring mesh network in
 ##build 
 g++ -Ofast -fpermissive -mfpu=vfp -mfloat-abi=hard -march=armv7-a -mtune=arm1176jzf-s -Wall -I../ -lncurses -lrf24-bcm -lrf24network -lrf24mesh -levent -lpthread hack_server.cpp -o hack_server
+##add log4cplus
+add -llog4cplus while link
 
 #this is ph1
 
