@@ -1,6 +1,16 @@
+#include <log4cplus/logger.h>
+//#include <log4cplus/consoleappender.h>
+#include <log4cplus/fileappender.h>
+#include <log4cplus/layout.h>
+//#include <log4cplus/ndc.h>
+//#include <log4cplus/mdc.h>
+#include <log4cplus/helpers/loglog.h>
+#include <log4cplus/thread/threads.h>
+//#include <log4cplus/helpers/sleep.h>
 #include <log4cplus/loggingmacros.h>
 #include <iostream>
 #include <string>
+
 
 using namespace std;
 using namespace log4cplus;
