@@ -1,7 +1,8 @@
 #for hackthon.
 #this is p2
-##Bring mesh network in. 
+##Bring RF driver in.
 ##Bring RF netwrok in. 
+##Bring RF mesh network in. 
 ##Bring log4cplus in. 
 ##Bring libevent in. 
 ##Bring Docker in. 
