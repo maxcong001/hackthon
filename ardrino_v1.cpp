@@ -1,3 +1,13 @@
+
+/** RF24Mesh_Example.ino by TMRh20
+
+   This example sketch shows how to manually configure a node via RF24Mesh, and send data to the
+   master node.
+   The nodes will refresh their network address as soon as a single write fails. This allows the
+   nodes to change position in relation to each other and the master node.
+*/
+
+
 #include "RF24.h"
 #include "RF24Network.h"
 #include "RF24Mesh.h"
@@ -20,7 +30,9 @@ RF24Mesh mesh(radio, network);
 
  **/
 #define nodeID 1
-
+#define RF_SUCCESS 1
+#define RF_FAIL 2
+#define RETRY_MAX 9
 
 uint32_t displayTimer = 0;
 
@@ -47,6 +59,7 @@ enum rf_protocol{
 struct one_wire_onoff_s{
     char pin;
     char data;
+    char reserved;
 };
 
 void setup() {
@@ -100,6 +113,32 @@ void loop() {
     Serial.print("Received packet #");
   }
 }
+
+void send_message(char* payload, char type, char len)
+{
+  for (int i = 0; i < RETRY_MAX; i++)
+  {
+      if (!mesh.write(payload, type, len))   
+      {
+        // If a write fails, check connectivity to the mesh network
+        if ( ! mesh.checkConnection() ) {
+          //refresh the network address
+          Serial.println("Renewing Address");
+          mesh.renewAddress();
+        } 
+        else 
+        {
+          Serial.println("Send fail, Test OK");
+        }
+      } 
+      else 
+      {
+        Serial.print("Send OK: "); Serial.println(displayTimer);
+        break;
+      }       
+  }
+}
+
 void handle_S_message(char *payload_p, char len)
 {
   rf_payload* rf_payload_p = NULL;
@@ -120,6 +159,7 @@ void handle_S_message(char *payload_p, char len)
       {
         Serial.println("wrong pin!");
       }
+      send_message(payload_p, 'S', len);
       break;
     default:
       Serial.println("unknow protocol!");
@@ -136,25 +176,11 @@ void handle_G_message(char *payload_p, char len)
       memcpy(&tmp_one_wire_onoff_s, &(rf_payload_p->data), sizeof(tmp_one_wire_onoff_s));
       tmp_one_wire_onoff_s.data = digitalRead(tmp_one_wire_onoff_s.pin);
       
-      memcpy(&(rf_payload_p->data), &tmp_one_wire_onoff_s, sizeof(tmp_one_wire_onoff_s));     
+      memcpy(&(rf_payload_p->data), &tmp_one_wire_onoff_s, sizeof(tmp_one_wire_onoff_s));   
+
+      send_message( payload_p, 'G', len); 
+      break;
       
-      if (!mesh.write(payload_p, 'G', len))   
-      {
-        // If a write fails, check connectivity to the mesh network
-        if ( ! mesh.checkConnection() ) {
-          //refresh the network address
-          Serial.println("Renewing Address");
-          mesh.renewAddress();
-        } 
-        else 
-        {
-          Serial.println("Send fail, Test OK");
-        }
-      } 
-      else 
-      {
-        Serial.print("Send OK: "); Serial.println(displayTimer);
-      }   
     default:
       Serial.println("unknow protocol!");
       break;       
@@ -169,6 +195,9 @@ void handle_P_message(char *payload_p, char len)
       one_wire_onoff_s tmp_one_wire_onoff_s;
       memcpy(&tmp_one_wire_onoff_s, &(rf_payload_p->data), sizeof(tmp_one_wire_onoff_s));
       digitalWrite(tmp_one_wire_onoff_s.pin,tmp_one_wire_onoff_s.data);
+      
+      send_message(payload_p, 'P', len);    
+      
       break;
     default:
       Serial.println("unknow protocol!");
@@ -188,19 +217,8 @@ void interrupt_0(void)
   //tx_payload.data = 1;
   memcpy(buf, &tx_payload, sizeof(rf_payload));
   memcpy(buf + sizeof(rf_payload) - 1, &payload_buf, sizeof(one_wire_onoff_s));
-    if (!mesh.write(&buf, 'R', tx_payload.len)) {
 
-      // If a write fails, check connectivity to the mesh network
-      if ( ! mesh.checkConnection() ) {
-        //refresh the network address
-        Serial.println("Renewing Address");
-        mesh.renewAddress();
-      } else {
-        Serial.println("Send fail, Test OK");
-      }
-    } else {
-      Serial.print("Send OK: "); Serial.println(int(tx_payload.data));
-    }
+  send_message(buf, 'R', tx_payload.len);
 }
 void interrupt_1(void)
 {
@@ -215,19 +233,7 @@ void interrupt_1(void)
   //tx_payload.data = 1;
   memcpy(buf, &tx_payload, sizeof(rf_payload));
   memcpy(buf + sizeof(one_wire_onoff_s) - 1, &payload_buf, sizeof(one_wire_onoff_s));
-    if (!mesh.write(&buf, 'R', tx_payload.len)) {
-
-      // If a write fails, check connectivity to the mesh network
-      if ( ! mesh.checkConnection() ) {
-        //refresh the network address
-        Serial.println("Renewing Address");
-        mesh.renewAddress();
-      } else {
-        Serial.println("Send fail, Test OK");
-      }
-    } else {
-      Serial.print("Send OK: "); Serial.println(int(tx_payload.data));
-    }
+  send_message(buf, 'R', tx_payload.len);
 }
 
 
