@@ -124,7 +124,7 @@ void send_message(char* payload, char type, char len)
       } 
       else 
       {
-        Serial.print("Send OK: "); Serial.println(displayTimer);
+        Serial.print("Send OK: "); 
         break;
       }       
   }
@@ -138,13 +138,31 @@ void handle_S_message(char *payload_p, char len)
     case rf_one_wire_onoff:
       one_wire_onoff_s tmp_one_wire_onoff_s;
       memcpy(&tmp_one_wire_onoff_s, &(rf_payload_p->data), sizeof(tmp_one_wire_onoff_s));
+      pinMode(tmp_one_wire_onoff_s.pin, INPUT);
       if ( tmp_one_wire_onoff_s.pin == 2)
       {
-        attachInterrupt(0, interrupt_0, RISING);
+        if ( tmp_one_wire_onoff_s.data )
+        {
+          attachInterrupt(0, interrupt_0, RISING);
+        }
+        else
+        {
+          detachInterrupt(0);
+        }
+        
       }
       else if ( tmp_one_wire_onoff_s.pin == 3)
       {// to do:four type here
-        attachInterrupt(1, interrupt_0, RISING);
+        if ( tmp_one_wire_onoff_s.data )
+        {
+          Serial.println("attachInterrupt!!");
+          attachInterrupt(1, interrupt_1, RISING);
+        }
+        else
+        {
+          Serial.println("detachInterrupt!!");
+          detachInterrupt(1);
+        }
       }
       else
       {
@@ -165,6 +183,7 @@ void handle_G_message(char *payload_p, char len)
     case rf_one_wire_onoff:
       one_wire_onoff_s tmp_one_wire_onoff_s;
       memcpy(&tmp_one_wire_onoff_s, &(rf_payload_p->data), sizeof(tmp_one_wire_onoff_s));
+      pinMode(tmp_one_wire_onoff_s.pin, INPUT);
       tmp_one_wire_onoff_s.data = digitalRead(tmp_one_wire_onoff_s.pin);
       
       memcpy(&(rf_payload_p->data), &tmp_one_wire_onoff_s, sizeof(tmp_one_wire_onoff_s));   
@@ -185,7 +204,10 @@ void handle_P_message(char *payload_p, char len)
     case rf_one_wire_onoff:
       one_wire_onoff_s tmp_one_wire_onoff_s;
       memcpy(&tmp_one_wire_onoff_s, &(rf_payload_p->data), sizeof(tmp_one_wire_onoff_s));
-      digitalWrite(tmp_one_wire_onoff_s.pin,tmp_one_wire_onoff_s.data);
+      pinMode(tmp_one_wire_onoff_s.pin, OUTPUT);
+      Serial.println("digitalWrite to pin. data is ");Serial.println(int(tmp_one_wire_onoff_s.data?HIGH:LOW));
+      Serial.println("pin number is ");Serial.println(int(tmp_one_wire_onoff_s.pin));
+      digitalWrite(tmp_one_wire_onoff_s.pin,(tmp_one_wire_onoff_s.data?HIGH:LOW));
       
       send_message(payload_p, 'P', len);    
       
