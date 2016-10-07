@@ -1,8 +1,13 @@
 #for hackthon.
 #this is p2
-##had bring mesh network in. Bring RF netwrok in. Bring log4cplus in. Bring libevent in. Bring Docker in. Bing ncurses in
+##Bring mesh network in. 
+##Bring RF netwrok in. 
+##Bring log4cplus in. 
+##Bring libevent in. 
+##Bring Docker in. 
+##Bring ncurses in
 
-lib needed:
+##lib needed:
 
         linux-vdso.so.1 (0x7eec7000)
         /usr/lib/arm-linux-gnueabihf/libarmmem.so (0x76f2d000)
