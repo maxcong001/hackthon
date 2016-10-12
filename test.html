@@ -9,21 +9,15 @@ table.center{margin-left:auto;margin-right:auto;}
 </style>
 </head>
 <body>
-	
-	
- <!--   <form id="form" name="form" method="POST" enctype="multipart/form-data" action="action1.jsp" target="iframe">  
-      <input type="file" name="file" id="file" class="input_text80"></input>  
-      <input id="name" name="name"/>  
-      <input type="button" value="更新到探测点" onClick="javascript:formSubmit();"></input>  
-    </form>  
-    <iframe name="iframe"></iframe>-->  
+
 <script>
 function formSubmit(){  
     var nodeID = document.getElementById("node_id").value;
     var pinnum = document.getElementById("pin_number").value;
     var protocol=document.getElementById("option").selectedIndex;
+	var get_set=document.getElementById("option1").selectedIndex;
 
-    window.location.href="http://127.0.0.1"+"/"+nodeID+"/"+pinnum+"/"+protocol.toString();
+    window.location.href="http://127.0.0.1"+"/"+nodeID+"/"+pinnum+"/"+protocol.toString()+""+get_set.toString();
    
 } 
 </script>
@@ -54,6 +48,15 @@ function formSubmit(){
 				<option value="test">rf_i2c</option>
 				<option value="test">rf_spi</option>
 				<option value="test">rf_serial</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td width="150">get or set</td>
+		<td>
+			<select name="protocol" id="option1">
+				<option value="test">get</option>
+				<option value="test">set</option>
 			</select>
 		</td>
 	</tr>
