@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8"> 
+<title>test page</title> 
+<style>
+body{background-color:linen;}
+table.center{margin-left:auto;margin-right:auto;}
+</style>
+</head>
+<body>
+	
+	
+ <!--   <form id="form" name="form" method="POST" enctype="multipart/form-data" action="action1.jsp" target="iframe">  
+      <input type="file" name="file" id="file" class="input_text80"></input>  
+      <input id="name" name="name"/>  
+      <input type="button" value="更新到探测点" onClick="javascript:formSubmit();"></input>  
+    </form>  
+    <iframe name="iframe"></iframe>-->  
+<script>
+function formSubmit(){  
+    var nodeID = document.getElementById("node_id").value;
+    var pinnum = document.getElementById("pin_number").value;
+    var protocol=document.getElementById("option").selectedIndex;
+
+    window.location.href="http://127.0.0.1"+"/"+nodeID+"/"+pinnum+"/"+protocol.toString();
+   
+} 
+</script>
+
+<table width="500" border="0">
+	<tr>
+		<td width="150">node_id</td>
+        <td>
+			<input type="text" name="node_id" id="node_id">
+			</input>
+		</td>
+	</tr>
+ 
+	<tr>
+		<td width="150">pin_number</td>
+		<td>
+			<input type="text" name="pin_number" id="pin_number"></input>
+		<td>
+	</tr>
+	<tr>
+		<td width="150">protocol</td>
+		<td>
+			<select name="protocol" id="option">
+				<option value="test">rf_one_wire_onoff</option>
+				<option value="test">rf_onoff</option>
+				<option value="test">rf_one_wire_analog</option>
+				<option value="test">rf_one_wire</option>
+				<option value="test">rf_i2c</option>
+				<option value="test">rf_spi</option>
+				<option value="test">rf_serial</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="button" value="submit" onClick="javascript:formSubmit();"></input>
+		</td>
+	</tr>
+</table>	
+</body>
+</html>
