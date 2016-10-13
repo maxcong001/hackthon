@@ -16,8 +16,9 @@ function formSubmit(){
     var pinnum = document.getElementById("pin_number").value;
     var protocol=document.getElementById("option").selectedIndex;
 	var get_set=document.getElementById("option1").selectedIndex;
+	var data = document.getElementById("data").value;
 
-    window.location.href="http://127.0.0.1"+"/"+nodeID+"/"+pinnum+"/"+protocol.toString()+"/"+get_set.toString();
+    window.location.href="http://192.168.31.130:8081"+"/"+nodeID+"/"+pinnum+"/"+protocol.toString()+"/"+get_set.toString()+"/"+data.toString();
    
 } 
 </script>
@@ -26,7 +27,7 @@ function formSubmit(){
 	<tr>
 		<td width="150">node_id</td>
         <td>
-			<input type="text" name="node_id" id="node_id">
+			<input type="text" name="node_id" id="node_id" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" >
 			</input>
 		</td>
 	</tr>
@@ -34,7 +35,7 @@ function formSubmit(){
 	<tr>
 		<td width="150">pin_number</td>
 		<td>
-			<input type="text" name="pin_number" id="pin_number"></input>
+			<input type="text" name="pin_number" id="pin_number" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"></input>
 		<td>
 	</tr>
 	<tr>
@@ -57,8 +58,15 @@ function formSubmit(){
 			<select name="protocol" id="option1">
 				<option value="test">get</option>
 				<option value="test">set</option>
+				<option value="test">set_interrupt</option>
 			</select>
 		</td>
+	</tr>
+	<tr>
+		<td width="150">data</td>
+		<td>
+			<input type="text" name="data" id="data" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"></input>
+		<td>
 	</tr>
 	<tr>
 		<td>
