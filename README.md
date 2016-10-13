@@ -29,6 +29,8 @@
 
 ##build 
 g++ -Ofast -fpermissive -mfpu=vfp -mfloat-abi=hard -march=armv7-a -mtune=arm1176jzf-s -Wall -I../ -lncurses -lrf24-bcm -lrf24network -lrf24mesh -levent -lpthread -llog4cplus hack_server.cpp -o hack_server
+
+g++ hack_http.cpp rf_util.cpp -levent
 ##add log4cplus
 add -llog4cplus while link
 
