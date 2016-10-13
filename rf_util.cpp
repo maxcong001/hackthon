@@ -43,3 +43,4 @@ void form_socket_message(char *buf, char nodeID, char type, char protocol, char*
     form_rf_payload(tmp_buf, protocol, message);
     form_socket_message_from_rf_payload(buf, tmp_buf, nodeID, type);
 }
+
