@@ -123,6 +123,9 @@ void on_read(int sock, short event, void* arg)
     ev->buffer = (char*)malloc(MEM_SIZE);
     bzero(ev->buffer, MEM_SIZE);
     size = recv(sock, ev->buffer, MEM_SIZE, 0);
+     LOG4CPLUS_DEBUG(logger,
+             "receive :"
+             <<ev->buffer);
     //printf("receive data:%s, size:%d\n", ev->buffer, size);
     if (size == 0) {
         release_sock_event(ev);
@@ -163,7 +166,7 @@ int main()
         append_1->setLayout( std::auto_ptr<Layout>(new PatternLayout(pattern)) );
         Logger::getRoot().addAppender(append_1);
 
-        logger.setLogLevel(TRACE_LOG_LEVEL);
+        logger.setLogLevel(DEBUG_LOG_LEVEL);
 
     }
     catch(...) {
@@ -288,6 +291,10 @@ void handle_incoming_message(char *buf, RF24NetworkHeader* header_p)
                     <<"receive a 'R' message!");
             handle_R_message(payload_p, header_p);
             break;
+        case 'M':
+            LOG4CPLUS_TRACE(logger, _func
+                    <<"receive a 'M' message!");
+            break;
         default:
             LOG4CPLUS_ERROR(logger, _func
                     <<"receive an invalid  message!");
@@ -354,7 +361,7 @@ void* start_monitor(void *)
         memset(message_buf, 0, 32 - sizeof(RF24NetworkHeader));
 		uint16_t payload_len;
 		payload_len = network.read(header,message_buf,32 - sizeof(RF24NetworkHeader));
-        LOG4CPLUS_DEBUG(logger, _func
+        LOG4CPLUS_TRACE(logger, _func
                 <<"got "
                 <<payload_len
                 <<" byte message form RF24");
@@ -470,9 +477,9 @@ void pingNode(uint8_t listNo)
         }
 	}
 	pingtime = millis()-pingtime;
-	mvprintw(12,0," ID:%d    ",mesh.addrList[listNo].nodeID);
-	mvprintw(13,0," Net:0%o    ",mesh.addrList[listNo].address);
-	mvprintw(14,0," Time:%ums       ",pingtime);
+	mvprintw(12,0," ID:%d",mesh.addrList[listNo].nodeID);
+	mvprintw(13,0," Net:0%o",mesh.addrList[listNo].address);
+	mvprintw(14,0," Time:%ums",pingtime);
 	
 	if(ok || !headers.to_node)
     {	
