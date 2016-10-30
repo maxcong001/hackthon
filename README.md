@@ -1,3 +1,9 @@
+#plan to add jsoncpp in and change the whole arc to support mqtt and access ali-yun.
+##following work is needed.
+1. move http container out(optional). Add a new container to create topic/auth topic/publish topic
+2. bring jsoncpp in. The format of topic is json. 
+todo 
+
 #for hackthon.
 #this is p2
 ##Bring RF driver in.
