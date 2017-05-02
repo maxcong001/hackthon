@@ -1,3 +1,10 @@
+#this project stops development, the new place is under:
+https://github.com/maxcong001/smartGateway
+which provide more powerful solution.
+Have fun with the new project!
+
+
+
 #this project is for low cost RF network. the system has almost the same function as zigbee procotol do.
 
 #plan to add jsoncpp in and change the whole arc to support mqtt and access ali-yun.
